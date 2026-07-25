@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Primitives;
+﻿using System.Globalization;
+using System.Text.Json;
+using Microsoft.Extensions.Primitives;
 using NewLife;
 using NewLife.Log;
-using System.Globalization;
-using System.Text.Json;
 using Xunit;
 
 namespace XUnitTest.Common;
