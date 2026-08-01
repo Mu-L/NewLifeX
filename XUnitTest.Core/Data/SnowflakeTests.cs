@@ -211,7 +211,7 @@ public class SnowflakeTests
         var id = snowflake.NewId22(time, uid);
         
         // 验证22位业务Id格式
-        var expectedId = ((Int64)(time - snowflake.StartTimestamp).TotalMilliseconds << 22) | (uid & ((1 << 22) - 1));
+        var expectedId = ((Int64)(time - snowflake.StartTimestamp).TotalMilliseconds << 22) | (uid & ((1L << 22) - 1));
         Assert.Equal(expectedId, id);
     }
 

@@ -306,7 +306,7 @@ public class BinaryTests
 
         var bn = new Binary { EncodeInt = true, UseFieldSize = true };
         bn.Write(model);
-        var pk = new Packet(bn.GetBytes());
+        var pk = new ArrayPacket(bn.GetBytes());
         Assert.Equal(5, model.Length);
         Assert.Equal(6, pk.Total);
         Assert.Equal("0553746F6E65", pk.ToHex());

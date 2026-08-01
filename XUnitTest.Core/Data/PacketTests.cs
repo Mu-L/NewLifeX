@@ -4,6 +4,9 @@ using NewLife;
 using NewLife.Data;
 using Xunit;
 
+// 本文件专门测试已过时的 Packet 类 API，抑制 CS0618 过时警告
+#pragma warning disable CS0618
+
 namespace XUnitTest.Data;
 
 public class PacketTests
