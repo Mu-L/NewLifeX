@@ -114,7 +114,7 @@ dotnet run
 |                  | [RPC通信ApiServer](https://newlifex.com/core/api_server)                     | ⚠️ 已移至 [NewLife.Remoting](https://www.nuget.org/packages/NewLife.Remoting) |
 |                  | [RPC通信ApiClient](https://newlifex.com/core/api_client)                     | ⚠️ 已移至 [NewLife.Remoting](https://www.nuget.org/packages/NewLife.Remoting) |
 |                  | [HTTP客户端ApiHttpClient](https://newlifex.com/core/api_http)                | 基于HttpClient封装，简化Web API的调用和处理。    |
-|                  | [HTTP服务端HttpServer（嵌入式设备）](https://newlifex.com/core/httpserver)   | 轻量级Http服务器，适合嵌入式和物联网设备使用。  |
+|                  | [HTTP服务端HttpServer（嵌入式设备）](https://newlifex.com/core/httpserver)   | 轻量级Http服务器，支持中间件管道、参数化路由与静态文件服务。 |
 |                  | [网络下载WebClientX](https://newlifex.com/core/webclient)                    | 增强版WebClient，支持多线程、断点续传下载。      |
 |                  | [WebSocket服务器（物联网下行通知神器）](https://newlifex.com/core/websocket) | 高性能WebSocket服务端，适用于物联网消息推送。    |
 |                  | [WebSocket双向通信](/core/websocket_guide)                                   | 介绍握手、帧处理、心跳与连接关闭实践。           |

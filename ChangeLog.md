@@ -1,5 +1,54 @@
 # NewLife.Core 版本更新记录
 
+## v11.18.2026.0801 (2026-08-01)
+
+### HTTP 服务增强
+- **HTTP 中间件机制**：引入中间件管道，支持 CORS 跨域与统一错误处理
+- **参数化路由**：支持 `{param}` 参数化路由与多方法注册，完善路由体系
+- **Controller 注入增强**：支持 `IHttpContext`/DI 容器多方式注入，支持作用域内动态注册服务实例（`IServiceRegistry`）
+- **静态文件服务**：支持内嵌资源作为 HTTP 静态文件服务
+- **参数绑定重构**：抽取 `ParameterBinder`，统一 MIME 类型处理，`FormFile` 保存原子化，优化 GET/DELETE 参数拼接
+- **TokenHttpFilter 并发安全**：防止重复申请刷新令牌
+
+### 连接池与对象池
+- **连接池架构升级**：支持池满阻塞与生命周期回收，`Max`/`Min` 语义对齐主流
+- **ObjectPool 信号量限流**：重构信号量限流，健壮性增强
+
+### 网络层优化
+- **WebSocket 掩码与心跳**：完善掩码与心跳机制实现
+- **ProcessHelper 增强**：宿主进程识别与文档说明完善
+
+### 工具类
+- **24 位无符号整数读写**：新增 UInt24 读写方法
+- **GeoPoint 值类型优化**：改为 `readonly record struct`，优化为值类型
+- **接口清理**：移除过时的 `GetEventBus`、`IncrementWithTtl`/`DecrementWithTtl` 接口
+
+### Bug 修复
+- **[fix]** 完成 `MachineInfo` 分部类迁移，消除 70 个编译错误（重复定义与缺失 `partial` 修饰符）；修复 Windows 路径 `LoadHardwareFromRegistry` 的平台标注（消除 22 个 CA1416 警告）
+- **[fix]** `PKCS7PaddingTransform` 整倍块长明文缺失完整填充块，与 .NET/Java 标准填充互通；`SM4.GenerateKey` 误设 IV、`ProtectedKey` Hex 分支误用 Base64、`Crc16/Crc32` 偏移量校验错误
+- **[fix]** JSON 数组/列表解析丢弃 null 元素导致位置错位；`JsonComposite.Write` 误调用 `Read` 方法
+- **[fix]** `MemoryCache` 持久化过期时间截断，已过期条目加载后复活为永不过期（持久化格式升级至 v2）
+- **[fix]** `IReflect` JsonIgnore 条件语义反转、静态属性字典并发写、数组深拷贝越界
+- **[fix]** `Cron` 步进值为 0 时死循环挂死；XML/配置空文件解析死循环
+- **[fix]** `XmlConfig` 字符串锁对象失效导致并发保存冲突；`Actor` Stop 后 `Tell` 崩溃
+- **[fix]** `WebSocket` Ping 回显使用已释放缓冲；`SessionBase`/`UdpSession` 池化对象泄漏；`HttpServer` 路径缓存并发安全
+- **[fix]** `CacheLock` 分布式锁引入持有者令牌，避免锁超时被接管后误删新持有者的锁
+- **[fix]** `ConsoleLog`/`NetworkLog` 异步写日志丢失唤醒竞态，日志永久滞留队列
+- **[fix]** `HttpRouter` 可选参数 `{param?}` 死代码；`ApiHttpClient` 释放节点 HttpClient；`ObjectPool` 创建失败无限循环等 40+ 处缺陷
+- **[fix]** `ObjectContainer` 新增线程安全查询 `ContainsService`/`FindServices`，消除 `ServiceProvider.GetService` 与 `ModelExtension.GetServices` 无锁遍历在启动期与并发注册抛集合修改异常
+- **[fix]** `Asn1` 补 `0x83` 三字节长格式支持（长度超过 65535 的 TLV 原解析错位），`0x80` BER 不定长由静默错解改为显式抛错
+- **[fix]** `Rand.NextBytes` 在 net45/netstandard2.0 改用加密安全随机数生成器，与 `Next()` 保持一致（原 `new Random()` 非加密安全）
+- **[fix]** `ReadStringUni` 按实际长度读取字符串；`BitConverter` 越界与 `PathHelper` 写入偏移问题
+- **[fix]** `ToDictionary`/`ApiHelper` 错误转换数组和列表；流读取不完整及 `ToBase64` 返回值问题
+- **[fix]** 优化 `DeferredQueue` 并发安全与性能、`ArrayPacket` 解包数据安全性、`BinaryGeneral`/`Normal` 内存池归还与解码逻辑
+
+### 测试与质量
+- 全量测试 2558 项全部通过（含 MachineInfo 39 项、PKCS7 9 项）
+- 测试代码迁移新 API（`ArrayPacket`/`JsonOptions`/`SearchAsync`），消除 CS0618 与 xUnit 分析器警告
+- 新增 `Rand.NextBytes`、`Asn1` 长格式（0x83/0x80）测试；修复 `SnowflakeTests` 全局 WorkerId 测试随机到 0 的偶发失败（0 表示未设置，应排除）
+- 新增 `ICache`/`IProducerConsumer`/`TimeProvider`/`PluginManager` 契约测试，补充 `XTrace`/`Config`/`JsonReader`/`Cache`、`XmlParser`/`TypeConverter`、`PluginHelper`、`ConsoleLog`、HTTP 中间件等核心类型测试
+- 创建需求文档/功能清单/架构设计三件套文档，功能清单测试覆盖 55/74
+
 ## v11.17.2026.0701 (2026-07-01)
 
 ### JSON 增强
