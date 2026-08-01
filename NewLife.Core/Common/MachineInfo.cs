@@ -328,7 +328,6 @@ public partial class MachineInfo : IExtend
     #endregion
 
     #region 辅助
-
     private static Boolean TryRead(String fileName, [NotNullWhen(true)] out String? value)
     {
         value = null;
@@ -507,6 +506,7 @@ public partial class MachineInfo : IExtend
     }
     #endregion
 
+    #region Windows辅助
     private class SystemTime
     {
         public Int64 IdleTime;
@@ -514,4 +514,5 @@ public partial class MachineInfo : IExtend
     }
 
     private SystemTime? _systemTime;
+    #endregion
 }
