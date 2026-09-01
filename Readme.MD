@@ -77,6 +77,7 @@ dotnet run
 |                  | [对象池ObjectPool](https://newlifex.com/core/object_pool)                    | 用于复用昂贵对象，提高性能并减少GC压力。         |
 |                  | [对象池Pool](/core/pool)                                                     | 基于CAS的高性能通用对象池，降低GC压力。          |
 |                  | [分布式缓存NewLife.Redis](https://newlifex.com/core/redis)                   | 基于Redis的分布式缓存实现，支持多种数据结构。    |
+|                  | [向量存储IVectorStore](/core/vector_store)                                   | 向量集合管理接口，支持 Top-K 相似度检索，为 AI 应用提供向量检索基础设施。 |
 | **高性能缓冲区** | [数据包IPacket](https://newlifex.com/core/packet)                            | 零拷贝切片、链式包的核心数据包接口。             |
 |                  | [缓冲区Buffers](/core/buffers)                                               | 高性能缓冲区操作库，汇总Span和池化写入等组件。   |
 |                  | [池化写入器PooledByteBufferWriter](/core/pooled_buffer_writer)               | 基于ArrayPool的池化缓冲写入器，支持动态扩容。    |

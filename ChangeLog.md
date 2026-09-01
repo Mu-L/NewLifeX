@@ -1,5 +1,33 @@
 # NewLife.Core 版本更新记录
 
+## v11.19.2026.0901 (2026-09-01)
+
+### 新增功能
+- **向量存储接口**：新增 `IVectorStore`/`VectorRecord` 向量存储接口及数据结构，对标 Microsoft.Extensions.VectorData 做非泛型简化，支持 Top-K 相似度检索，为 AI 应用提供向量检索基础设施
+- **Murmur128 哈希增强**：增强 Murmur128 哈希算法实现并补充完整单元测试覆盖
+- **GeoPoint 功能增强**：增强 GeoPoint 地理位置处理能力并补充完整单元测试
+
+### 配置与日志
+- **SysConfig 注解完善**：为 SysConfig 属性补充 Description 注解并优化命名
+- **日志文件命名统一**：日志文件命名统一为下划线分隔，移除 UTC 时间校正
+
+### Bug 修复
+- **[fix]** 修复 DSAHelper 对 PgenCounter/Counter 节点解析兼容性及标签不对称问题
+- **[fix]** 修复 Crc16/Crc32 边界校验绕过、索引越界、Modbus 偏移与大流计数回绕
+- **[fix]** 修复 PerfCounter 采样间隔异常配置除零与数组越界（Interval=0 或 Duration<Interval 时）
+- **[fix]** RaceLoadBalancer 自定义探测委托异常击穿竞速调用兜底；XmlGeneral Decimal 经 Double 中转丢精度修正
+- **[fix]** JwtBuilder 算法注册表并发安全、签名失败出参消息补齐；WebClientX 并发创建 HttpClient 泄漏防护
+- **[fix]** PinYin 对 GB2312 未收录汉字编码越界崩溃补长度防护；SplitByFixedSize 补负偏移防护
+- **[fix]** NetServer 随机端口落入系统保留段导致 UDP 绑定失败时清理并重新分配端口（有界重试 3 次）
+- **[fix]** 修复 CacheLock 零超时空闲锁无法获取、MemoryCache 持久化过期竞态、CommandParser/JsonConfigProvider 越界、HttpConfigProvider 字符串锁失效、FileConfigProvider 非 Windows 原子写入崩溃
+- **[fix]** ProcessHelper.Execute returnError 未重定向 stderr 导致死功能；BitHelper Byte 重载负位置破坏数据
+- **[fix]** 修复 PKCS7 多块拷贝偏移、Rand 取绝对值溢出、Asn1 空缓冲越界
+
+### 测试与质量
+- 补充 Murmur128、GeoPoint、PinYin 越界防护等回归测试
+
+---
+
 ## v11.18.2026.0801 (2026-08-01)
 
 ### HTTP 服务增强
